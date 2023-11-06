@@ -9,11 +9,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.appapi.projvid.dtos.EpisodeDTO;
@@ -22,13 +22,13 @@ import com.appapi.projvid.repository.EpisodeRepository;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin(origins = {"http://10.0.0.148:3000", "http://localhost:3000"})
+@RequestMapping("/v1")
 @RestController
 public class EpisodeController {
 	@Autowired
 	private EpisodeRepository episodeRepository;
 	
-	@PostMapping("/episode")
+	@PostMapping("/show")
 	public ResponseEntity<Object> saveEpisode(@RequestBody @Valid EpisodeDTO episodeDto){
 		var episodeModel = new Episode();
 		BeanUtils.copyProperties(episodeDto, episodeModel);

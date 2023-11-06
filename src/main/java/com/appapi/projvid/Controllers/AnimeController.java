@@ -8,10 +8,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.appapi.projvid.dtos.AnimeDTO;
@@ -20,7 +20,7 @@ import com.appapi.projvid.repository.AnimeRepository;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin(origins = {"http://10.0.0.148:3000", "http://localhost:3000"})
+@RequestMapping("/show")
 @RestController
 public class AnimeController {
 	@Autowired
@@ -43,7 +43,7 @@ public class AnimeController {
 	@GetMapping("/animes")
 	public ResponseEntity<Object> getAllAnimes(){
 		try {
-			Pageable pageable = PageRequest.of(0, 10);
+			Pageable pageable = PageRequest.of(0, 20);
 			List<Anime> animesList = animeRepository.findAll(pageable).toList();
 
 			if(animesList.isEmpty()) {
