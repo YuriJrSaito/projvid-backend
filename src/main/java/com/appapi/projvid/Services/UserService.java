@@ -24,19 +24,15 @@ public class UserService {
 
         var user = (UserAccess) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
 
-        // check if the current password is correct
         if (!passwordEncoder.matches(request.currentPassword(), user.getPassword())) {
             throw new IllegalStateException("Wrong password");
         }
-        // check if the two new passwords are the same
+
         if (!request.newPassword().equals(request.confirmationNewPassword())) {
             throw new IllegalStateException("Password are not the same");
         }
 
-        // update the password
         user.setPassword(passwordEncoder.encode(request.newPassword()));
-
-        // save the new password
         repository.save(user);
     }
 }
